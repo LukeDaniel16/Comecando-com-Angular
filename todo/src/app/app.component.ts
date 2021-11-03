@@ -18,11 +18,19 @@ export class AppComponent {
     this.todos.push(new Todo(5, 'Voltar para casa', false));
   }
 
-  remove() {
+  remove(todo: Todo) {
+    const index = this.todos.indexOf(todo);
+
+    if (index !== -1) {
+      this.todos.splice(index, 1);
+    }
+  }
+
+  maskAsDone(todo: Todo) {
 
   }
 
-  maskAsDone() {
+  markAsUndone(todo: Todo) {
 
   }
 }
