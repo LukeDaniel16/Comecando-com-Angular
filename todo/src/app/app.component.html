@@ -1,5 +1,6 @@
 <h1>{{ title }}</h1>
 <ul>
+  <p><small>Não existem tarefas para hoje! - {{dataAtual}} </small></p>
   <li *ngFor="let todo of todos">
     {{todo.id}}. {{ todo.title }} -
     <button *ngIf="!todo.done" (click)="maskAsDone(todo)">Concluir</button> |
@@ -14,7 +15,7 @@
     <input type="text" placeholder="Título da tarefa" maxlength="60" formControlName="title">
     <small *ngIf="form.controls.title.invalid && !form.controls.title.pristine">Este campo é inválido entre 3 e 60
       caracteres.</small>
-    <button [disabled]="form.invalid">Salvar</button>
+    <button [disabled]="form.invalid" (click)="add()">Salvar</button>
   </fieldset>
 </form>
 

@@ -8,6 +8,7 @@ import { Todo } from 'src/models/todo.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  public dataAtual: String = new Date().toLocaleDateString();
   public todos: Todo[] = [];
   public title: String = 'Minhas tarefas';
   public form: FormGroup;
@@ -20,11 +21,20 @@ export class AppComponent {
         Validators.required
       ])]
     });
-    this.todos.push(new Todo(1, 'Passear com o cachorro', false));
-    this.todos.push(new Todo(2, 'Ir à academia', false));
-    this.todos.push(new Todo(3, 'Ir ao supermercado', false));
-    this.todos.push(new Todo(4, 'Cortar o cabelo', true));
-    this.todos.push(new Todo(5, 'Voltar para casa', false));
+
+    this.load();
+  }
+
+  add() {
+    const title = this.form.controls.title.value;
+    const id = this.todos.length + 1;
+    this.todos.push(new Todo(id, title, false));
+    this.save();
+    this.clear();
+  }
+
+  clear() {
+    this.form.reset();
   }
 
   remove(todo: Todo) {
@@ -32,14 +42,31 @@ export class AppComponent {
 
     if (index !== -1) {
       this.todos.splice(index, 1);
+      this.save();
     }
   }
 
   maskAsDone(todo: Todo) {
     todo.done = true;
+    this.save();
   }
 
   markAsUndone(todo: Todo) {
     todo.done = false;
+    this.save();
+  }
+
+  save() {
+    const data = JSON.stringify(this.todos);
+    localStorage.setItem('todos', data);
+  }
+
+  load() {
+    const data = localStorage.getItem('todos');
+
+    if (data) {
+      this.todos = JSON.parse(data);
+    }
+
   }
 }
