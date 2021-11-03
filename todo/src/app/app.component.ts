@@ -9,8 +9,9 @@ import { Todo } from 'src/models/todo.model';
 })
 export class AppComponent {
   public dataAtual: String = new Date().toLocaleDateString();
+  public mode = 'list';
   public todos: Todo[] = [];
-  public title: String = 'Minhas tarefas';
+  public title: String = 'Lista de tarefas';
   public form: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -23,6 +24,10 @@ export class AppComponent {
     });
 
     this.load();
+  }
+
+  changeMode(modeChoice: string) {
+    this.mode = modeChoice;
   }
 
   add() {
@@ -46,7 +51,7 @@ export class AppComponent {
     }
   }
 
-  maskAsDone(todo: Todo) {
+  markAsDone(todo: Todo) {
     todo.done = true;
     this.save();
   }
@@ -59,6 +64,7 @@ export class AppComponent {
   save() {
     const data = JSON.stringify(this.todos);
     localStorage.setItem('todos', data);
+    this.mode = 'list';
   }
 
   load() {
@@ -67,6 +73,5 @@ export class AppComponent {
     if (data) {
       this.todos = JSON.parse(data);
     }
-
   }
 }
