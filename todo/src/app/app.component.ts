@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Todo } from 'src/models/todo.model';
 
 @Component({
@@ -14,7 +15,7 @@ export class AppComponent {
   public title: String = 'Lista de tarefas';
   public form: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private titleMain: Title) {
     this.form = this.fb.group({
       title: ['', Validators.compose([
         Validators.minLength(3),
@@ -23,6 +24,7 @@ export class AppComponent {
       ])]
     });
 
+    this.titleMain.setTitle('Lista de tarefas!');
     this.load();
   }
 
