@@ -1,4 +1,4 @@
-# Curso do [Balta](balta.io) sobre Angular
+# Curso do [Balta](https://balta.io) sobre Angular
 
 Neste curso iniciamos os estudos sobre Angular e entendemos os princípios básicos desse framework Frontend consolidado no mercado e um dos mais populares até hoje.
 
