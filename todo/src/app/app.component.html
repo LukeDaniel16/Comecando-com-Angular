@@ -2,14 +2,22 @@
 <ul>
   <li *ngFor="let todo of todos">
     {{todo.id}}. {{ todo.title }} -
-    <button *ngIf="!todo.done">Concluir</button> |
-    <button *ngIf="todo.done">Refazer</button> |
+    <button *ngIf="!todo.done" (click)="maskAsDone(todo)">Concluir</button> |
+    <button *ngIf="todo.done" (click)="markAsUndone(todo)">Refazer</button> |
     <button (click)="remove(todo)">Remover</button>
   </li>
 </ul>
 
+<form [formGroup]="form">
+  <fieldset>
+    <label>Tarefa: </label>
+    <input type="text" placeholder="Título da tarefa" maxlength="60" formControlName="title">
+    <button>Salvar</button>
+  </fieldset>
+</form>
+
 <!--
-  () = HTML > ts
-  [] = ts > HTML
+  () = HTML > ts - Chamar evento
+  [] = ts > HTML - Ref de variável
   [()] = TS <> HTML
 -->
